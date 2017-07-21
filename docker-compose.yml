@@ -1,0 +1,65 @@
+version: '3.3'
+services:
+  install:
+    image: ${IMAGE_NAME}
+    volumes:
+      - ./:/home/node/app
+    environment:
+      - "NODE_ENV=development"
+      - "TZ=${TIMEZONE}"
+    command: ["npm", "i"]
+  build:
+    image: ${IMAGE_NAME}
+    environment:
+      - "NODE_ENV=production"
+      - "TZ=${TIMEZONE}"
+    volumes:
+      - ./:/home/node/app
+    command: ["npm", "run", "build"]
+  lint:
+    image: ${IMAGE_NAME}
+    volumes:
+      - ./:/home/node/app
+    environment:
+      - "NODE_ENV=test"
+      - "TZ=${TIMEZONE}"
+    command: ["npm", "run", "lint"]
+  dev:
+    image: ${IMAGE_NAME}
+    environment:
+      - "NODE_ENV=development"
+      - "TZ=${TIMEZONE}"
+    volumes:
+      - ./:/home/node/app
+    command: ["npm", "run", "dev"]
+  sh:
+    image: ${IMAGE_NAME}
+    environment:
+      - "NODE_ENV=development"
+      - "TZ=${TIMEZONE}"
+    volumes:
+      - ./:/home/node/app
+    command: ["sh"]
+  test:
+    image: ${IMAGE_NAME}
+    volumes:
+      - ./:/home/node/app
+    environment:
+      - "NODE_ENV=test"
+      - "TZ=${TIMEZONE}"
+    command: ["npm", "run", "test"]
+  coverage:
+    image: ${IMAGE_NAME}
+    volumes:
+      - ./:/home/node/app
+    environment:
+      - "NODE_ENV=test"
+      - "TZ=${TIMEZONE}"
+    command: ["npm", "run", "coverage"]
+  serve-coverage:
+    image: nginx:alpine
+    environment:
+      - "TZ=${TIMEZONE}"
+    volumes:
+      - ./coverage:/usr/share/nginx/html
+

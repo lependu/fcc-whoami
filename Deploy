@@ -1,0 +1,23 @@
+FROM node:6.11-alpine
+
+RUN addgroup -g 1024 dps && \
+  addgroup node dps && \
+  mkdir -p /home/node/app
+
+COPY package.json /home/node/app/
+COPY src /home/node/app/src
+
+RUN \
+  chown -R node:dps /home/node/app && \
+  chmod g+x /home/node/app
+
+USER node
+
+WORKDIR /home/node/app
+
+ENV PATH "$PATH:node_modules/.bin"
+
+RUN npm i && \
+  npm run build
+
+ENV NODE_ENV "production"

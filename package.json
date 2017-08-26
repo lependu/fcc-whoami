@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "description": "project-description",
   "scripts": {
+    "coverage": "nyc --reporter html teenytest",
     "dev": "nodemon -w lib",
-    "start": "node lib/index.js",
-    "lint": "eslint lib"
+    "lint": "eslint lib",
+    "start": "node lib/app.js",
+    "test": "teenytest",
+    "test:coverage": "nyc --reporter text teenytest"
   },
   "author": "lependu@protonmail.com",
   "license": "MIT",
@@ -19,10 +22,16 @@
     "node"
   ],
   "dependencies": {
+    "express": "4.15.4",
+    "body-parser": "1.17.2"
   },
   "devDependencies": {
     "eslint": "4.2.0",
-    "nodemon": "1.11.0"
+    "nodemon": "1.11.0",
+    "nyc": "11.1.0",
+    "supertest": "3.0.0",
+    "teenytest": "5.0.2",
+    "testdouble": "3.2.4"
   },
   "eslintConfig": {
     "extends": [
@@ -43,5 +52,9 @@
         "never"
       ]
     }
+  },
+  "teenytest": {
+    "testLocator": "test/**/*-test.js",
+    "timeout": 2000
   }
 }

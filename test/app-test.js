@@ -1,5 +1,6 @@
 const assert = require('assert')
 const request = require('supertest')
+const td = require('testdouble')
 
 module.exports = {
   beforeEach: (done) => {
@@ -23,10 +24,11 @@ module.exports = {
     }
   },
   'App | Integration |': {
-    'Default 404': (done) => {
+    'Not found handler': (done) => {
       this.server = this.subject(3333)
       request(this.server).get('/').end((err, res) => {
         assert.equal(res.status, 404)
+        assert.equal(res.body.message, 'Not Found')
         done(err)
       })
     }

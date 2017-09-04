@@ -1,6 +1,5 @@
 const assert = require('assert')
 const request = require('supertest')
-const td = require('testdouble')
 
 module.exports = {
   beforeEach: (done) => {

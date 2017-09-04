@@ -7,7 +7,7 @@ module.exports = {
     this.req = td.object({ get: () => {} })
   },
   'Fetch Header | Unit |': {
-    'Multiple ip address': () => {
+    'Multiple ip addresses': () => {
       td.when(this.req.get('X-Forwarded-For'))
         .thenReturn('192.168.1.1, 172.0.0.1')
       let result = this.subject(this.req, 'X-Forwarded-For')
